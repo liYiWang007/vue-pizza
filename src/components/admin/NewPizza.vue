@@ -1,15 +1,15 @@
 <template>
-  <h1>老板 </h1>
+  
 </template>
 
 <script>
 export default {
-  name: 'PersonName',
+  name: 'NewPizza',
   data() {
     return {
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped>

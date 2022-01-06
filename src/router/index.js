@@ -4,13 +4,13 @@ import Menu from "../components/Menu";
 import About from "../components/about/About";
 import Register from "../components/Register";
 import Login from "../components/Login";
-import Admin from "../components/Admin";
+import Admin from "../components/admin/Admin";
 
 // 二级路由
 import Delivery from "../components/about/Delivery";
 import History from "../components/about/History";
 import OrderingGuide from "../components/about/OrderingGuide";
-import Contact from "../components/about/Contact";
+import Contact from "../components/about/contact/Contact";
 
 // 三级路由
 import Phone from "../components/about/contact/Phone";

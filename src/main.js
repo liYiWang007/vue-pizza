@@ -14,7 +14,7 @@ import { routes } from "./router/index.js";
 // import error from "./components/404";
 
 // 二级路由
-// import Contact from "./components/about/Contact";
+// import Contact from "./components/about/contact/Contact";
 // import Delivery from "./components/about/Delivery";
 // import History from "./components/about/History";
 // import OrderingGuide from "./components/about/OrderingGuide";
