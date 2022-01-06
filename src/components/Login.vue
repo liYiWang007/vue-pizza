@@ -24,15 +24,41 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
-      email: "",
-      password: ""
-    };
-  }
-};
+      email: '',
+      password: '',
+    }
+  },
+  methods: {
+    onSubmit() {
+      axios.get('/users.json').then((res) => {
+        // console.log(res.data) //确认能否获取数据
+        const data = res.data
+        const users = []
+        //数据转化为数组
+        for (let key in data) {
+          const user = data[key]
+          users.push(user)
+        }
+        // console.log(users) //检验数组
+
+        let result = users.filter((user) => {
+          return user.email === this.email && user.password === this.password
+        })
+        // console.log(result)//检验用户输入的跟数据库里的是否对应
+        if (result !=null&& result.length>0){
+            this.$router.push({name:'home'})
+        }else{
+            alert('请输入正确的账号或密码！')
+        }
+      })
+    },
+  },
+}
 </script>
 
 <style scoped></style>

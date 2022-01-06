@@ -1,4 +1,5 @@
 <template>
+  <!-- 复杂版 多级验证（世界的尽头是if） -->
   <div class="register">
     <div class="row mt-3">
       <div class="card mx-auto">
@@ -41,16 +42,47 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.password === this.confirmPassword) {
-        const FormData = {
-          email: this.email,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
+      axios.get('users.json').then((res) => {
+        // console.log(res)//检验获取数据
+        const data = res.data
+        const users = []
+        for (let key in data) {
+          const user = data[key]
+          users.push(user)
         }
-      axios.post('/users.json', FormData).then(res=>this.$router.push({name:'login'}))
-      }else{
-          alert('密码不一致')
-      }
+        // console.log(users)//检验是否成功转化为数组
+        let result = users.filter((user) => {
+          return user.email === this.email
+        })
+        if (result.length > 0) {
+          alert('邮箱已注册')
+        } else {
+          if (
+            this.password === this.confirmPassword &&
+            this.password !== null &&
+            this.password !== '' &&
+            this.email !== null &&
+            this.email !== ''
+          ) {
+            if (this.password.length < 8) {
+              alert('密码最少8位')
+            } else {
+              const FormData = {
+                email: this.email,
+                password: this.password,
+                confirmPassword: this.confirmPassword,
+              }
+              axios
+                .post('/users.json', FormData)
+                .then((res) => this.$router.push({ name: 'login' }))
+            }
+          } else {
+            if (this.password === '' || this.password === null) {
+              alert('密码不能为空')
+            } else if (this.email === '' || this.email === null) alert('邮箱不能为空')
+          }
+        }
+      })
     },
   },
 }
