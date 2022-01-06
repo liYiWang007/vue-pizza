@@ -122,23 +122,52 @@ export default {
     }
   },
   computed: {
-    total: function() {},
+    total() {
+      let totalCost = 0
+      for (let index in this.baskets) {
+        let individualItem = this.baskets[index]
+        totalCost += individualItem.price * individualItem.quantity
+      }
+      return totalCost
+    },
   },
   methods: {
     addToBasket(item, option) {
-      this.baskets.push({
+      // 判断添加是否重复
+      let basket = {
         name: item.name,
         size: option.size,
         price: option.price,
         quantity: 1,
-      })
-      console.log(this.baskets)
+      }
+      if (this.baskets.length > 0) {
+        //过滤
+        let result = this.baskets.filter((item) => {
+          return basket.name === item.name && basket.price === item.price
+        })
+        if (result !== null && result.length > 0) {
+          result[0].quantity++
+        } else {
+          this.baskets.push(basket)
+        }
+      } else {
+        this.baskets.push(basket)
+      }
+
+      // 基础写法
+      //   this.baskets.push({
+      //     name: item.name,
+      //     size: option.size,
+      //     price: option.price,
+      //     quantity: 1,
+      //   })
+      //   console.log(this.baskets)
     },
     increaseQuantity(item) {
       item.quantity++
     },
     decreaseQuantity(item) {
-        item.quantity--
+      item.quantity--
 
       if (item.quantity <= 0) {
         this.removeFormBaskets(item)
