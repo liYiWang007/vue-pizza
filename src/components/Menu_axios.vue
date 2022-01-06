@@ -72,21 +72,18 @@
 <script>
 
 export default {
-  name: 'Menu',
+  name: 'Menu_axios',
   data() {
     return {
       emptyBasket: '购物车还没添加商品噢',
       baskets: [],
+      getMenuItems: {}
     }
   },
-created() {
+  created() {
     this.fetchData() 
-},
+  },
   computed: {
-      getMenuItems(){
-        //   从vuex中获取数据
-        return this.$store.state.menuItems
-      },
     total() {
       let totalCost = 0
       for (let index in this.baskets) {
@@ -99,7 +96,7 @@ created() {
   methods: {
     fetchData() {
       this.$axios.get('menu.json')
-        .then((res) => this.$store.commit('setMenuItems',res.data))
+        .then((res) => this.getMenuItems=res.data)
     },
     addToBasket(item, option) {
       // 去重

@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import axios from 'axios'
+import {store} from './store'
 
-import { routes } from './router/index.js'
+import { routes } from './router'
 //以下内容都放到router文件夹内
 // import Home from "./components/Home";
 
@@ -97,5 +98,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   render: (h) => h(App)
 })
