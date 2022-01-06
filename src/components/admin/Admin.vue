@@ -7,7 +7,7 @@
       </div>
       <div class="col-sm-12 col-md-4">
         <!-- 品种展示 -->
-        <h3 class="text-nuter my-5">菜单</h3>
+        <h3 class="text-muted my-5">菜单</h3>
         <table class="table">
           <thead class="table table-default">
             <tr>
@@ -32,10 +32,14 @@
 </template>
 
 <script>
+import NewPizza from "./NewPizza.vue";
 export default {
   name: 'Admin',
+  components: { NewPizza },
   data() {
-    return {}
+    return {
+        getMenuItems: []
+    }
   },
   methods: {},
 }
