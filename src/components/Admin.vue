@@ -1,33 +1,42 @@
 <template>
-  <div>admin</div>
+  <div class="admin">
+    <div class="row">
+      <div class="col-sm-12 col-md-8">
+        <!-- new Pizza -->
+        <NewPizza />
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <!-- 品种展示 -->
+        <h3 class="text-nuter my-5">菜单</h3>
+        <table class="table">
+          <thead class="table table-default">
+            <tr>
+              <th>品种</th>
+              <th>删除</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in getMenuItems" :key="item.id">
+              <td>{{ item.name }}</td>
+              <td>
+                <button @click.prevent="deleteData(item)" class="btn btn-outline-danger btn-sm">
+                  &times;
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Admin",
+  name: 'Admin',
   data() {
-    return {
-        aname: 'aname在数据渲染后才出现'
-    };
+    return {}
   },
-  //beforeRouteEnter: (to, from, next) => {
-    //   数据渲染前执行，所以拿不到aname
-    // alert("Hello，" + this.aname);
-    //
-    // next里写回调  异步vm=>{}，在数据渲染后执行以下操作
-    //next(vm=>{
-    //     alert("这里看清楚是vm前缀:" + vm.aname)
-    // })
-  //},
-//   beforeRouteLeave:(to, from, next)=>{
-//       //beforeRouteLeave 跳转前的操作
-//       if(confirm("未保存，确定离开当前页面吗？")==true){
-//           next()
-//       }else{
-//           next(false)
-//       }
-//   }
-};
+  methods: {},
+}
 </script>
-
-<style scoped></style>
