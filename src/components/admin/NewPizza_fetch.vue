@@ -1,5 +1,5 @@
 <template>
-  <!-- axios全局引入 -->
+<!-- fetch方法 -->
   <form>
     <h3 class="text-muted my-5">添加新的Pizza</h3>
     <div class="form-group row">
@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  name: 'NewPizza',
+  name: 'NewPizza_fetch',
   data() {
     return {
       newPizza: {}
@@ -75,7 +75,21 @@ export default {
           }
         ]
       }
-      this.$axios.post('menu.json', data).then((res) => this.$router.push({ name: 'menu' }))
+
+      //   axios vue-resource es6 fecth
+      fetch('https://vue-pizza-cdef2-default-rtdb.firebaseio.com/menu.json', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        //   JSON.stringify()转化为json字符串
+        body: JSON.stringify(data)
+      })
+
+        // console.log(res) //检验数据
+        .then((res) => res.json())
+        .then((data) => this.$router.push({name:'menu'})) //检验数据 console.log(data)
+        .catch(err=>console.log(err))
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-<!-- 统一在main.js=>prototype配置axios后 -->
+  <!-- 单页面引入axios时 -->
   <div class="menu">
     <div class="row">
       <div class="col-sm-12 col-md-8">
@@ -70,9 +70,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
-  name: 'Menu',
+  name: 'Menu_axios_base',
   data() {
     return {
       emptyBasket: '购物车还没添加商品噢',
@@ -81,7 +82,7 @@ export default {
     }
   },
   created() {
-    this.fetchData() 
+    this.fetchData()
   },
   computed: {
     total() {
@@ -95,8 +96,8 @@ export default {
   },
   methods: {
     fetchData() {
-      this.$axios.get('menu.json')
-        .then((res) => this.getMenuItems=res.data)
+      //直接获取firebase中的数据
+      axios.get('menu.json').then((res) => (this.getMenuItems = res.data))
     },
     addToBasket(item, option) {
       // 去重

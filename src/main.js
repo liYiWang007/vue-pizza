@@ -1,32 +1,26 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import App from "./App.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import App from './App.vue'
 import axios from 'axios'
 
-import { routes } from "./router/index.js";
+import { routes } from './router/index.js'
 //以下内容都放到router文件夹内
 // import Home from "./components/Home";
-// import Menu from "./components/Menu";
-// import About from "./components/about/About";
-// import Admin from "./components/Admin";
-// import Register from "./components/Register";
-// import Login from "./components/Login";
-// import error from "./components/404";
 
 // 二级路由
 // import Contact from "./components/about/contact/Contact";
-// import Delivery from "./components/about/Delivery";
-// import History from "./components/about/History";
-// import OrderingGuide from "./components/about/OrderingGuide";
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
-axios.defaults.baseURL='https://vue-pizza-cdef2-default-rtdb.firebaseio.com/'
+// 配置默认根路径
+axios.defaults.baseURL = 'https://vue-pizza-cdef2-default-rtdb.firebaseio.com/'
+
+// 配置Vue 原型 .$axios、.http 是一样的配置后在任何组件都可以正常使用axios
+Vue.prototype.$axios=axios
 
 //注意 直接写在main.js里的不用加 export
 // const routes = [
 //   { path: "/", name: "homeLink", component: Home },
-//   { path: "/menu", name: "menuLink", component: Menu },
 //   {
 //     path: "/about",
 //     name: "aboutLink",
@@ -37,21 +31,6 @@ axios.defaults.baseURL='https://vue-pizza-cdef2-default-rtdb.firebaseio.com/'
 //         path: "/about/contact",
 //         name: "contactLink",
 //         component: Contact
-//       },
-//       {
-//         path: "/about/delivery",
-//         name: "deliveryLink",
-//         component: Delivery
-//       },
-//       {
-//         path: "/about/history",
-//         name: "historyLink",
-//         component: History
-//       },
-//       {
-//         path: "/about/orderingGuide",
-//         name: "orderingGuideLink",
-//         component: OrderingGuide
 //       }
 //     ]
 //   },
@@ -73,27 +52,25 @@ axios.defaults.baseURL='https://vue-pizza-cdef2-default-rtdb.firebaseio.com/'
 //     //   }
 //     // }
 //   },
-//   { path: "/login", name: "loginLink", component: Login },
-//   { path: "/register", name: "registerLink", component: Register },
-//   //   { path: "*", component: error }
+//   { path: "*", component: error }
 //   { path: "*", redirect: "/" }
 // ];
 
 const router = new VueRouter({
   routes,
-  mode: "history",
+  mode: 'history',
   scrollBehavior(to, from, savePosition) {
     //打开滚动到指定位置
     //   return { x:0, y:140 }
     // 打开滚动到指定div
     // return { selector: ".scrollbehavior" };
     if (savePosition) {
-      return savePosition;
+      return savePosition
     } else {
-      return { x: 0, y: 0 };
+      return { x: 0, y: 0 }
     }
   }
-});
+})
 
 // 全局守卫 to=进入哪个路由、from=从哪个路由离开、next将展示的路由页面
 //前置钩子
@@ -118,7 +95,7 @@ const router = new VueRouter({
 // })
 
 new Vue({
-  el: "#app",
+  el: '#app',
   router,
-  render: h => h(App)
-});
+  render: (h) => h(App)
+})
