@@ -32,15 +32,47 @@
 </template>
 
 <script>
-import NewPizza from "./NewPizza.vue";
+import NewPizza from './NewPizza.vue'
 export default {
   name: 'Admin',
   components: { NewPizza },
   data() {
     return {
-        getMenuItems: []
+      getMenuItems: []
     }
   },
-  methods: {},
+  created() {
+    fetch('https://vue-pizza-cdef2-default-rtdb.firebaseio.com/menu.json')
+      .then((res) => {
+        // 获取数据需要用return
+        // .json()转化
+        return res.json()
+      })
+      .then((data) => {
+        // console.log(data)//检测是否成功获取
+        let menuArr = []
+        for (let key in data) {
+          // 把key值赋予data.id
+          data[key].id = key
+          menuArr.push(data[key])
+        }
+
+        //为什么要赋值两次，而不是直接赋值呢？
+        this.getMenuItems = menuArr
+      })
+  },
+  methods: {
+    deleteData(item) {
+      fetch('https://vue-pizza-cdef2-default-rtdb.firebaseio.com/menu/' + item.id + '/.json', {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => this.$router.push({ name: 'menu' }))
+        .catch((err) => console.log(err))
+    }
+  }
 }
 </script>
