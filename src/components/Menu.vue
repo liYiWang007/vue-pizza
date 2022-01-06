@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     addToBasket(item, option) {
-      // 判断添加是否重复
+      // 去重
       let basket = {
         name: item.name,
         size: option.size,
@@ -146,6 +146,7 @@ export default {
           return basket.name === item.name && basket.price === item.price
         })
         if (result !== null && result.length > 0) {
+            //在原有数据上累加
           result[0].quantity++
         } else {
           this.baskets.push(basket)
