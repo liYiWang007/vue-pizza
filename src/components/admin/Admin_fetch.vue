@@ -34,39 +34,34 @@
 <script>
 import NewPizza from './NewPizza.vue'
 export default {
-  name: 'Admin',
+  name: 'Admin_fetch',
   components: { NewPizza },
   data() {
-    return {}
-  },
-  created() {
-    this.fetchData()
-  },
-  computed: {
-    getMenuItems: {
-      get() {
-        // 从 getters 获取
-        return this.$store.getters.getMenuItems
-      }
+    return {
+      getMenuItems: []
     }
   },
-  methods: {
-    fetchData() {
-      this.$axios
-        .get('menu.json')
-        .then((res) => this.$store.commit('setMenuItems', res.data))
-        .then((data) => {
-          let menuArr = []
-          for (let key in data) {
-            // 把key值赋予data.id
-            data[key].id = key
-            menuArr.push(data[key])
-          }
+  created() {
+    fetch('https://vue-pizza-cdef2-default-rtdb.firebaseio.com/menu.json')
+      .then((res) => {
+        // 获取数据需要用return
+        // .json()转化
+        return res.json()
+      })
+      .then((data) => {
+        // console.log(data)//检测是否成功获取
+        let menuArr = []
+        for (let key in data) {
+          // 把key值赋予data.id
+          data[key].id = key
+          menuArr.push(data[key])
+        }
 
-          //为什么要赋值两次，而不是直接赋值呢？
-          //   this.getMenuItems = menuArr
-        })
-    },
+        //为什么要赋值两次，而不是直接赋值呢？
+        this.getMenuItems = menuArr
+      })
+  },
+  methods: {
     deleteData(item) {
       fetch('https://vue-pizza-cdef2-default-rtdb.firebaseio.com/menu/' + item.id + '/.json', {
         method: 'DELETE',

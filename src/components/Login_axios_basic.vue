@@ -26,21 +26,16 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'Login',
+  name: 'Login_axios_basic',
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
     }
-  },
-//组件内导航守卫
-  beforeRouteEnter: (to, from, next) => {
-    //   this.$store.dispatch('setUser', null)
-    next((vm) => vm.$store.dispatch('setUser', null))
   },
   methods: {
     onSubmit() {
-      axios.get('users.json').then((res) => {
+      axios.get('/users.json').then((res) => {
         // console.log(res.data) //确认能否获取数据
         const data = res.data
         const users = []
@@ -55,17 +50,14 @@ export default {
           return user.email === this.email && user.password === this.password
         })
         // console.log(result)//检验用户输入的跟数据库里的是否对应
-        if (result != null && result.length > 0) {
-          // dispatch、commit都行
-          this.$store.dispatch('setUser', result[0].email)
-          this.$router.push({ name: 'home' })
-        } else {
-          alert('请输入正确的账号或密码！')
-          this.$store.dispatch('setUser', null)
+        if (result !=null&& result.length>0){
+            this.$router.push({name:'home'})
+        }else{
+            alert('请输入正确的账号或密码！')
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

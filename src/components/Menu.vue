@@ -84,8 +84,11 @@ created() {
 },
   computed: {
       getMenuItems(){
-        //   从vuex中获取数据
-        return this.$store.state.menuItems
+        // getters中获取数据
+        return this.$store.getters.getMenuItems
+
+        //  基础 从vuex中获取数据
+        // return this.$store.state.menuItems
       },
     total() {
       let totalCost = 0
