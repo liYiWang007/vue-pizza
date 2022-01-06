@@ -60,6 +60,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 9;
     .navbar{
         max-width: 1280px;
         margin: 0 auto;

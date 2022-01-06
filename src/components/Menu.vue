@@ -10,7 +10,7 @@
               <th>加入</th>
             </tr>
           </thead>
-          <tbody v-for="(item, index) in getMenuItems" :key="index">
+          <tbody v-for="item in getMenuItems" :key="item.name">
             <tr>
               <td colspan="3">
                 <strong>{{ item.name }}</strong>
@@ -20,10 +20,7 @@
               <td>{{ option.size }}寸</td>
               <td>{{ option.price }}rmb</td>
               <td>
-                <button
-                  class="btn btn-sm btn-outline-success"
-                  @click="addToBasket(item, option)"
-                >
+                <button class="btn btn-sm btn-outline-success" @click="addToBasket(item, option)">
                   +
                 </button>
               </td>
@@ -76,11 +73,82 @@ export default {
   name: 'Menu',
   data() {
     return {
-    };
+      emptyBasket: '购物车还没添加商品噢',
+      baskets: [],
+      getMenuItems: {
+        1: {
+          name: '榴莲pizza',
+          description: '这是喜欢吃榴莲朋友的最佳选择',
+          options: [
+            {
+              size: 9,
+              price: 38,
+            },
+            {
+              size: 12,
+              price: 48,
+            },
+          ],
+        },
+        2: {
+          name: '芝士pizza',
+          description: '芝士杀手,浓浓的芝士丝, 食欲瞬间爆棚',
+          options: [
+            {
+              size: 9,
+              price: 38,
+            },
+            {
+              size: 12,
+              price: 48,
+            },
+          ],
+        },
+        3: {
+          name: '夏威夷pizza',
+          description: '众多人的默认选择',
+          options: [
+            {
+              size: 9,
+              price: 36,
+            },
+            {
+              size: 12,
+              price: 46,
+            },
+          ],
+        },
+      },
+    }
   },
-};
+  computed: {
+    total: function() {},
+  },
+  methods: {
+    addToBasket(item, option) {
+      this.baskets.push({
+        name: item.name,
+        size: option.size,
+        price: option.price,
+        quantity: 1,
+      })
+      console.log(this.baskets)
+    },
+    increaseQuantity(item) {
+      item.quantity++
+    },
+    decreaseQuantity(item) {
+        item.quantity--
+
+      if (item.quantity <= 0) {
+        this.removeFormBaskets(item)
+      }
+    },
+    removeFormBaskets(item) {
+      this.baskets.splice(this.baskets.indexOf(item), 1)
+    },
+  },
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
